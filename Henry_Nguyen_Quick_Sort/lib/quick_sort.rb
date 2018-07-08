@@ -53,7 +53,7 @@ class QuickSort
 
     pivot_idx = start
   
-    #Moving idx when 
+    #Moving idx when iteration finds a value smaller than pivot 
     barrier_idx = start
 
     #iterator
@@ -62,6 +62,8 @@ class QuickSort
           
       #move the barrier when the iteration's element is smaller than the pivot 
       #swap the iteration and barrier spot 
+      #[0, 1, 2, 3, 4] => [4, 3, 2, 1, 0]
+
       if prc.call(array[pivot_idx], array[idx]) == 1
         barrier_idx += 1
         
