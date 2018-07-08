@@ -9,4 +9,6 @@ class BSTNode
     @parent = nil 
   end
 
+  
+
 end
