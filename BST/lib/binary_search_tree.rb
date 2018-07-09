@@ -43,7 +43,7 @@ class BinarySearchTree
   def delete(value)
     delete_node = find(value)
     # p delete_node.value
-    replacement_node = children?(delete_node) > 0 ? maximum(delete_node) : nil
+    replacement_node = children?(delete_node) > 0 ? replace_node(delete_node) : nil
       # p replacement_node.value
       # p replacement_node.value
     if @root.value == value
@@ -79,7 +79,7 @@ class BinarySearchTree
   end
 
   # helper method for #delete:
-  def maximum(tree_node = @root)
+  def replace_node(tree_node = @root)
     maximum_node = tree_node
     left = tree_node.left 
     right = tree_node.right 
@@ -100,13 +100,47 @@ class BinarySearchTree
     end 
   end
 
+  def maximum(tree_node = @root)
+    maximum_node = tree_node
+   
+      until !maximum_node.right
+        maximum_node = maximum_node.right
+      end 
+      return maximum_node
+
+  end
+
   def depth(tree_node = @root)
+    return 0 if tree_node.nil? || !tree_node.left && !tree_node.right
+
+    left = depth(tree_node.left)
+    right = depth(tree_node.right)
+
+    left > right ? left + 1 : right + 1
+  
   end 
 
   def is_balanced?(tree_node = @root)
+    left = depth(tree_node.left)
+    right = depth(tree_node.right)
+    (left - right).abs < 1
   end
 
   def in_order_traversal(tree_node = @root, arr = [])
+    return [tree_node.value] if !tree_node.left && !tree_node.right
+
+    if tree_node.left
+      arr += in_order_traversal(tree_node.left)
+    end
+
+    arr.push(tree_node.value)
+
+
+    if tree_node.right
+      arr += in_order_traversal(tree_node.right)
+    end
+    arr
+
   end
 
 
