@@ -1,9 +1,9 @@
 require_relative 'binary_search_tree'
 def kth_largest(tree_node, k)
-sorted = sort_order_traversal(tree_node)
-value = sorted[sorted.length - k]
-# p value
-find_node(value, tree_node)
+  sorted = sort_order_traversal(tree_node)
+  value = sorted[sorted.length - k]
+  # p value
+  find_node(value, tree_node)
 
 end
 
