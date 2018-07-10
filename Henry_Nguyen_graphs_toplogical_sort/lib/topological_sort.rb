@@ -4,7 +4,7 @@ require 'byebug'
 
 def topological_sort(vertices)
   sorted = []
-  all_vertices = []
+
   top = []
     vertices.each do |vertex|
       if vertex.in_edges.empty?
@@ -18,7 +18,7 @@ def topological_sort(vertices)
       sorted << current 
 
       current.out_edges.each do |edge|
-        all_vertices << edge.to_vertex
+  
         edge.to_vertex.in_edges.delete(edge)
   
         if edge.to_vertex.in_edges.empty?
@@ -28,58 +28,45 @@ def topological_sort(vertices)
         
 
     end 
+
     if sorted.length == vertices.length 
       sorted 
     else 
       []
     end 
-  end 
-  # p vertices.length
-  # result = []
-  # return vertices if vertices.empty?
-  
-  # to_be_placed = []
-  # vertices.each_with_index do |vert, idx|
-  #   # p "#{idx}:#{vert.in_edges.length}"
-  #   if vert.in_edges.empty?
-  #     to_be_placed << idx
-  #   end
-  # end 
 
-  # to_be_placed.each do |idx|
-  #   result << vertices[idx].value
-    
-  # end
-  
-  # to_be_placed.each do |idx|
-  #   vertices[idx].out_edges.each do |edge|
-  #     edge.destroy!
-  #   end 
-  #   vertices.delete_at(idx)
-  # end 
+end 
 
-  
-  # vertices.each_with_index do |vert, idx|
-  #   p "#{idx}:#{vert.in_edges.length}"
-  # end 
-  # p vertices.length
-  # topological_sort(vertices)
-  # debugger
-  # topological_sort(vertices)
+#Tarjan
+#loops through each node of the graph/vertices
+#DFS that terminates when it hits any node that has already been visited or
+#no outgoing edges
+#a vertice only gets placed in the results after considering 
+#all other vertices which depend on that original vertice
+#when this vertice is added, it is guaranteed that nodes depend on it are already in the output
+#recursive call to visit()
 
-  # result.concat(topological_sort(vertices))
+#visit() loops through each node of the graph/vertices 
 
+# def topological_sort(vertices)
+#   sorted = []
+#   visited = []
 
+#   vertices.each do |vertex|
+#     visit(vertex, visited, sorted)
+#   end 
 
-
+#   sorted 
 # end
 
-#iterate through vertices, 
-# if vertices has no in_edges 
-#then take it out and shovel in that vertice
-# delete the out_edges
-#next iteration
+# def visit(vertex, visited, sorted)
+#   return if visited.include?(vertex)
+  
+  
 
+
+
+# end 
 
 
 
