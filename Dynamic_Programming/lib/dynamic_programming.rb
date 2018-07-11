@@ -4,7 +4,7 @@ class DynamicProgramming
 
   def initialize
     @blair_cache = {1 => 1, 2 => 2}
-    @frog_cache = {}
+    @frog_cache = {0 => [], 1 => [[1]], 2 => [[1, 1], [2]], 3 => [[1, 1, 1], [1, 2], [2, 1], [3]]}
   end
 
   def blair_nums(n)
@@ -16,7 +16,7 @@ class DynamicProgramming
   end
 
   def frog_cache_builder(n)
-    possible_hops = [1, 2, 3]
+    
     cache = {0 => [], 1 => [[1]], 2 => [[1, 1], [2]], 3 => [[1, 1, 1], [1, 2], [2, 1], [3]]}
     # return nil if n < 0
     return cache if n < 4
@@ -37,31 +37,23 @@ class DynamicProgramming
     
   end
 
-
-
-#   def fib_cache_builder(n)
-#   # Builds the cache, starting at 1 and ending at n
-#   cache = { 1 => 1, 2 => 1 }
-#   return cache if n < 3
-#   (3..n).each do |i|
-#     cache[i] = cache[i - 1] + cache[i - 2]
-#   end
-
-#   cache
-# end
-
-# def fibonacci(n)
-#   # Calls the helper function
-#   cache = fib_cache_builder(n)
-#   # Returns the nth entry
-#   cache[n]
-# end
-
   def frog_hops_top_down(n)
+    return @frog_cache[n] if @frog_cache[n]
 
+    frog_hops_top_down_helper(n) 
+   
+    
+    
   end
-
+  
   def frog_hops_top_down_helper(n)
+
+    return @frog_cache[n] if @frog_cache[n]
+
+    @frog_cache[n] = frog_hops_top_down_helper(n - 1).map{|el| el + [1]} + frog_hops_top_down_helper(n - 2).map {|el| el + [2]} + frog_hops_top_down_helper(n - 3).map {|el| el + [3]}
+
+
+    
 
   end
 
