@@ -6,6 +6,8 @@ class DynamicProgramming
     @blair_cache = {1 => 1, 2 => 2}
     @frog_cache = {0 => [], 1 => [[1]], 2 => [[1, 1], [2]], 3 => [[1, 1, 1], [1, 2], [2, 1], [3]]}
     @super_frog_cache = { 0 => [], 1 => [[1]], 2 => [[1, 1], [2]]}
+    @maze_cache = []
+    @knapsack_cache = {}
   end
 
   def blair_nums(n)
@@ -93,6 +95,16 @@ class DynamicProgramming
   end 
 
   def knapsack(weights, values, capacity)
+    
+    weights.each_with_index do |weight, idx |
+      
+    end 
+
+    #iterate through each weight 
+    #weight > capacity, next 
+    #if capacity == 0, return 0 
+    # total capacity == any of the current items
+    # && the value is greater 
 
   end
 
@@ -102,5 +114,19 @@ class DynamicProgramming
   end
 
   def maze_solver(maze, start_pos, end_pos)
+    populate_maze_cache(maze)
+    solve_maze(maze, start_pos, end_pos)
   end
+
+  private 
+  def populate_maze_cache(maze)
+
+  end 
+
+  def solve_maze(maze, start, finish_pos)
+    #left, right, up, down 
+
+
+  end 
+
 end
