@@ -5,6 +5,7 @@ class DynamicProgramming
   def initialize
     @blair_cache = {1 => 1, 2 => 2}
     @frog_cache = {0 => [], 1 => [[1]], 2 => [[1, 1], [2]], 3 => [[1, 1, 1], [1, 2], [2, 1], [3]]}
+    @super_frog_cache = { 0 => [], 1 => [[1]], 2 => [[1, 1], [2]]}
   end
 
   def blair_nums(n)
@@ -17,7 +18,7 @@ class DynamicProgramming
 
   def frog_cache_builder(n)
     
-    cache = {0 => [], 1 => [[1]], 2 => [[1, 1], [2]], 3 => [[1, 1, 1], [1, 2], [2, 1], [3]]}
+    cache = {0 => [[]], 1 => [[1]], 2 => [[1, 1], [2]], 3 => [[1, 1, 1], [1, 2], [2, 1], [3]]}
     # return nil if n < 0
     return cache if n < 4
     (4..n).each do |n|
@@ -29,6 +30,12 @@ class DynamicProgramming
     
 
   end
+
+
+  # instead of mapping everything with hardcoding with [1], [2], [3]
+  # make cache builder have a k = 3 second argument
+  # base  0 => [[]] 1 => [[1]]
+  # n and k iterative, push cache after k finishes 
 
   def frog_hops_bottom_up(n)
     cache = frog_cache_builder(n)
@@ -57,9 +64,33 @@ class DynamicProgramming
 
   end
 
-  def super_frog_hops(n, k)
+  def super_frog_hops(num_stairs, max_stairs)
+    cache = super_frogs_hops_cache(num_stairs, max_stairs)
+    cache[num_stairs]
 
+    
   end
+
+  def super_frogs_hops_cache(n, k)
+    cache = {0 => [[]], 1 => [[1]]}
+
+    return cache if n < 2
+
+    (2..n).each do |steps|
+      result = []
+      (1..k).each do |max_steps|
+        break if max_steps > steps
+        cache[steps - max_steps].each do |combo|
+
+          result << combo + [max_steps]
+        end 
+      end 
+      cache[steps] = result
+    end 
+
+    return cache
+
+  end 
 
   def knapsack(weights, values, capacity)
 
